@@ -12,13 +12,12 @@ class Solution{
     // K: element to be searche
     int searchInSorted(int arr[], int N, int K) 
     { 
-    int i;
-    for(i=0;i<N;i++){
-        if(arr[i]==K){
-            return 1;
-        }
-    }return -1;
-        }
+        for(int i=0;i<N;i++){
+            if(arr[i]==K){
+                return 1;
+            }
+        }return -1;
+    }
 };
 
 //{ Driver Code Starts.
