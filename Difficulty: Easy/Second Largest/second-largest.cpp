@@ -10,18 +10,30 @@ class Solution {
   public:
     // Function returns the second
     // largest elements
-    int print2largest(vector<int> &arr) {
-        int n=arr.size();
-        if(n<2){
+    int getSecondLargest(vector<int> &arr) {
+        int largest = INT_MIN, second_largest = INT_MIN;
+
+        for (int i = 0; i < arr.size(); i++) {
+            // Update the largest and second largest
+            if (arr[i] > largest) {
+                second_largest = largest;
+                largest = arr[i];
+            } 
+            // Update second largest if arr[i] is distinct and greater than second largest
+            else if (arr[i] > second_largest && arr[i] != largest) {
+                second_largest = arr[i];
+            }
+        }
+
+        // If second_largest is still INT_MIN, it means no second largest exists
+        if (second_largest == INT_MIN) {
             return -1;
         }
-        sort(arr.begin(), arr.end());
-        set<int>unique_elements(arr.begin(),arr.end());
-        vector<int>uniqueelement(unique_elements.begin(), unique_elements.end());
-        return uniqueelement[uniqueelement.size()-2];
-        // Code Here
+        
+        return second_largest;
     }
 };
+
 
 //{ Driver Code Starts.
 
@@ -39,7 +51,7 @@ int main() {
             arr.push_back(number);
         }
         Solution ob;
-        int ans = ob.print2largest(arr);
+        int ans = ob.getSecondLargest(arr);
         cout << ans << endl;
     }
     return 0;
