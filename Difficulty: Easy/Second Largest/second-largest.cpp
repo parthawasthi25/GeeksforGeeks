@@ -8,29 +8,22 @@ using namespace std;
 // User function template for C++
 class Solution {
   public:
-    // Function returns the second
-    // largest elements
     int getSecondLargest(vector<int> &arr) {
-        int largest = INT_MIN, second_largest = INT_MIN;
+        int largest = -1, secondLargest = -1;
 
-        for (int i = 0; i < arr.size(); i++) {
-            // Update the largest and second largest
+        // Iterate through the array
+        for (int i = 0; i < arr.size(); ++i) {
             if (arr[i] > largest) {
-                second_largest = largest;
+                // Update secondLargest before updating largest
+                secondLargest = largest;
                 largest = arr[i];
-            } 
-            // Update second largest if arr[i] is distinct and greater than second largest
-            else if (arr[i] > second_largest && arr[i] != largest) {
-                second_largest = arr[i];
+            } else if (arr[i] > secondLargest && arr[i] < largest) {
+                // Update secondLargest if arr[i] is between largest and secondLargest
+                secondLargest = arr[i];
             }
         }
 
-        // If second_largest is still INT_MIN, it means no second largest exists
-        if (second_largest == INT_MIN) {
-            return -1;
-        }
-        
-        return second_largest;
+        return secondLargest;
     }
 };
 
@@ -53,6 +46,7 @@ int main() {
         Solution ob;
         int ans = ob.getSecondLargest(arr);
         cout << ans << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
