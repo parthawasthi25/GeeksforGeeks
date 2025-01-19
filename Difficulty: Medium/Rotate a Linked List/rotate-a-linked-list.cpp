@@ -38,35 +38,34 @@ struct Node {
 
 class Solution {
   public:
-  int getLength(Node *r){
-      int c=0;
-      while(r){
-          c++;
-          r=r->next;
-          
-      }
-      return c;
-      
-  }
-  Node* rotate(Node* head, int k) {
-      Node *tail, *temp, *temp1;
-      temp=head;
-      temp1=temp;
-      int len=getLength(head);
-      if(len<=k) return head;
-      for(int i=1; i<k; i++) temp=temp->next;
-      tail=temp->next;
-      head=tail;
-      temp->next=NULL;
-      while(tail->next){
-          tail=tail->next;
-          
-      }
-      tail->next=temp1;
-      return head;
-      
-  }
+    Node* rotate(Node* head, int k) {
+        if (!head || !head->next || k == 0) return head;
+        
+        // Compute the length of the linked list
+        Node* temp = head;
+        int length = 1;
+        while (temp->next) {
+            temp = temp->next;
+            length++;
+        }
+        
+        // Make the list circular
+        temp->next = head;
+        
+        // Find the new head after k rotations
+        k = k % length; // If k > length, only need to rotate k % length times
+        for (int i = 0; i < k; i++) {
+            temp = temp->next;
+        }
+        
+        // Break the circular link
+        head = temp->next;
+        temp->next = nullptr;
+        
+        return head;
+    }
 };
+
 
 
 //{ Driver Code Starts.
@@ -106,6 +105,7 @@ int main() {
         Solution ob;
         head = ob.rotate(head, k);
         printList(head);
+        cout << "~\n";
     }
     return 1;
 }
